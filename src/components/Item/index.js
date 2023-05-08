@@ -6,7 +6,7 @@ import {
   AiFillPlusCircle,
   AiOutlineCheck,
   AiFillEdit,
-  AiFillCloseCircle,
+  AiFillCloseCircle
 } from 'react-icons/ai';
 import {
   FaCartPlus
@@ -15,7 +15,7 @@ import { deletarItem, mudarFavorito, mudarItem } from 'store/reducers/itens';
 import { useDispatch, useSelector } from 'react-redux';
 import { mudarCarrinho, mudarQuantidade } from 'store/reducers/carrinho';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import Input from 'components/Input';
 
 const iconeProps = {
@@ -28,7 +28,7 @@ const quantidadeProps = {
   color: '#1875E8'
 }
 
-export default function Item(props) {
+function Item(props) {
   const {
     titulo,
     foto,
@@ -54,14 +54,22 @@ export default function Item(props) {
 
   const componenteModoDeEdicao = <>
     {modoDeEdicao
-      ? <AiOutlineCheck {...iconeProps} className={styles['item-acao']} onClick={() => {
-        setModoDeEdicao(false);
-        dispatch(mudarItem({
-          id,
-          item: { titulo: novoTitulo }
-        }))
-      }} />
-      : <AiFillEdit {...iconeProps} className={styles['item-acao']} onClick={() => setModoDeEdicao(true)} />
+      ? <AiOutlineCheck
+        {...iconeProps}
+        className={styles['item-acao']}
+        onClick={() => {
+          setModoDeEdicao(false);
+          dispatch(mudarItem({
+            id,
+            item: { titulo: novoTitulo }
+          }));
+        }}
+      />
+      : <AiFillEdit
+        {...iconeProps}
+        className={styles['item-acao']}
+        onClick={() => setModoDeEdicao(true)}
+      />
     }
   </>
 
@@ -81,9 +89,9 @@ export default function Item(props) {
         <div className={styles['item-titulo']}>
           {modoDeEdicao
             ? <Input
-              value={novoTitulo}
-              onChange={evento => setNovoTitulo(evento.target.value)}
-            />
+                value={novoTitulo}
+                onChange={evento => setNovoTitulo(evento.target.value)}
+              />
             : <h2>{titulo}</h2>
           }
           <p>{descricao}</p>
@@ -134,3 +142,5 @@ export default function Item(props) {
     </div>
   )
 }
+
+export default memo(Item);

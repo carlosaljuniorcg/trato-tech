@@ -11,18 +11,15 @@ export default function Anuncie() {
   const dispatch = useDispatch();
   const { nomeCategoria = '' } = useParams();
   const categorias = useSelector(state => state.categorias.map(({ nome, id }) => ({ nome, id })));
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit } = useForm({
     defaultValues: {
-      categoria: nomeCategoria 
+      categoria: nomeCategoria
     }
   });
-  const { errors } = formState;
 
   function cadastrar(data) {
     dispatch(cadastrarItem(data));
   }
-
-  console.log(errors) // Para ver o objeto errors mudando!
 
   return (
     <div className={styles.container}>
@@ -31,13 +28,13 @@ export default function Anuncie() {
         descricao='Anuncie seu produto no melhor site do Brasil!'
       />
       <form className={styles.formulario} onSubmit={handleSubmit(cadastrar)}>
-        <Input className={errors.nome ? styles['Input-erro'] : ''} {...register('nome', { required: 'O campo nome é obrigatório' })} placeholder='Nome do produto' alt='nome do produto' />
-        {errors.nome && <span className={styles['mensagem-erro']}> {errors.nome.message} </span>}
-        <Input className={errors.descricao ? styles['input-erro'] : ''}  {...register('descricao', { required: 'O campo descricao é obrigatório' })} placeholder='Descrição do produto' alt='descrição do produto' />
-        {errors.descricao && <span className={styles['mensagem-erro']}> {errors.descricao.message} </span>}
-        <Input className={errors.imagem ? styles['input-erro'] : ''}  {...register('imagem', { required: 'O campo imagem é obrigatório' })} placeholder='URL da imagem do produto' alt='URL da imagem do produto' />
-        {errors.imagem && <span className={styles['mensagem-erro']}> {errors.imagem.message} </span>}
-        <select className={errors.categoria ? styles['input-erro'] : ''}  {...register('categoria', { required: 'O campo categoria é obrigatório' })} disabled={nomeCategoria}>
+        <Input {...register('titulo', { required: true })} placeholder='Nome do produto' alt='nome do produto' />
+        <Input {...register('descricao', { required: true })} placeholder='Descrição do produto' alt='descrição do produto' />
+        <Input {...register('foto', { required: true })} placeholder='URL da imagem do produto' alt='URL da imagem do produto' />
+        <select
+          {...register('categoria', { required: true })}
+          disabled={nomeCategoria}
+        >
           <option value='' disabled > Selecione a categoria </option>
           {categorias.map(categoria => (
             <option key={categoria.id} value={categoria.id}>
@@ -45,9 +42,7 @@ export default function Anuncie() {
             </option>
           ))}
         </select>
-        {errors.categoria && <span className={styles['mensagem-erro']}> {errors.categoria.message} </span>}
-        <Input className={errors.preco ? styles['input-erro'] : ''}  {...register('preco', { required: 'O campo preco é obrigatório' })} type='number' placeholder='Preço do produto' />
-        {errors.preco && <span className={styles['mensagem-erro']}> {errors.preco.message} </span>}
+        <Input {...register('preco', { required: true, valueAsNumber: true })} type='number' placeholder='Preço do produto' />
         <Button type='submit'>
           Cadastrar produto
         </Button>

@@ -1,12 +1,12 @@
+import Button from 'components/Button';
 import Header from 'components/Header';
 import Item from 'components/Item';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './Categoria.module.scss';
-import Button from 'components/Button';
 
 export default function Categoria() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const { nomeCategoria } = useParams();
   const { categoria, itens } = useSelector(state => {
     const regexp = new RegExp(state.busca, 'i');

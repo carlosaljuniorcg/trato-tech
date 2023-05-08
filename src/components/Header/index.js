@@ -2,7 +2,13 @@ import styles from './Header.module.scss';
 import TituloComImagem from './TituloComImagem';
 import TituloSemImagem from './TituloSemImagem';
 
-export default function Header({ titulo, descricao, className = '', imagem, children }) {
+export default function Header({
+  titulo,
+  descricao,
+  className = '',
+  imagem,
+  children
+}) {
   return (
     <header className={styles.header}>
       {titulo && !imagem &&

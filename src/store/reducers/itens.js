@@ -239,15 +239,11 @@ const itensSlice = createSlice({
       })
     },
     cadastrarItem: (state, { payload }) => {
-      state.push({...payload, id: uuid()});
+      state.push({ ...payload, id: uuid() });
     },
     mudarItem: (state, { payload }) => {
       const index = state.findIndex(item => item.id === payload.id);
       Object.assign(state[index], payload.item);
-       //state.map(item => {
-        //if (item.id === payload.id) Object.assign(item, payload.item  ); item = {...item, ...payload.item};
-        //return item;
-       //})
     },
     deletarItem: (state, { payload }) => {
       const index = state.findIndex(item => item.id === payload);
