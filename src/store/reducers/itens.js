@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 export const buscarItens = createAsyncThunk(
   'itens/buscar',
   itensService.buscar
-);
+)
 
 const itensSlice = createSlice({
   name: 'itens',
@@ -31,26 +31,26 @@ const itensSlice = createSlice({
     adicionarItens: (state, { payload }) => {
       state.push(...payload);
     }
-
   },
   extraReducers: builder => {
     builder
     .addCase(
       buscarItens.fulfilled,
-      (state, {payload}) => {
+      (state, { payload }) => {
+        console.log('itens carregados!');
         return payload;
       }
     )
     .addCase(
       buscarItens.pending,
-      (state, {payload}) => {
-
+      (state, { payload }) => {
+        console.log('carregando itens');
       }
     )
-    .addCase (
+    .addCase(
       buscarItens.rejected,
-      (state, {payload}) => {
-        
+      (state, { payload }) => {
+        console.log('busca de itens rejeitada!');
       }
     )
   }

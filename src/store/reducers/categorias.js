@@ -1,6 +1,6 @@
 import { createStandaloneToast } from '@chakra-ui/toast';
 import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import categoriaService from 'services/categorias';
+import categoriasService from 'services/categorias';
 import { resetarCarrinho } from './carrinho';
 
 const { toast } = createStandaloneToast();
@@ -9,18 +9,17 @@ const initialState = [];
 
 export const carregarCategorias = createAction('categorias/carregarCategorias');
 export const carregarUmaCategoria = createAction('categorias/carregarUmaCategoria');
-//export const adicionarUmaCategoria = createAction('categorias/carregarUmaCategoria');
 
 export const buscarCategorias = createAsyncThunk(
   'categorias/buscar',
-  categoriaService.buscar
+  categoriasService.buscar
 );
 
 const categoriasSlice = createSlice({
   name: 'categorias',
   initialState,
   reducers: {
-    adicionarTodasAsCategorias: (state, {payload}) => {
+    adicionarTodasAsCategorias: (state, { payload }) => {
       return payload;
     },
     adicionarUmaCategoria: (state, { payload }) => {
@@ -29,15 +28,17 @@ const categoriasSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-    .addCase (
+    .addCase(
       resetarCarrinho.type,
-      toast({
-        title: 'Sucesso!',
-        description: 'Compra completada com sucesso!',
-        status: 'success',
-        duration: 2000,
-        isClosable: true
-      })
+      () => {
+        toast({
+          title: 'Sucesso!',
+          description: 'Compra completada com sucesso!',
+          status: 'success',
+          duration: 2000,
+          isClosable: true
+        })
+      }
     )
   }
 });

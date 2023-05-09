@@ -13,11 +13,12 @@ const store = configureStore({
     carrinho: carrinhoSlice,
     busca: buscaSlice,
   },
-  middleware: 
-  getDefaultMiddleware => getDefaultMiddleware().prepend(
-    categoriasListener.middleware,
-    itensListener.middleware,
-  ),
+  middleware:
+    getDefaultMiddleware =>
+      getDefaultMiddleware().prepend(
+        categoriasListener.middleware,
+        itensListener.middleware
+      ),
 });
 
 export default store;

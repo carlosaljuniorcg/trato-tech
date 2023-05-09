@@ -23,13 +23,13 @@ export default function Anuncie() {
     dispatch(cadastrarItem(data));
   }
 
-  useEffect (() => {
+  useEffect(() => {
     dispatch(
-      nomeCategoria 
-        ? carregarUmaCategoria(nomeCategoria) 
+      nomeCategoria
+        ? carregarUmaCategoria(nomeCategoria)
         : carregarCategorias
     )
-  }, [dispatch, nomeCategoria])
+  }, [dispatch, nomeCategoria]);
 
   return (
     <div className={styles.container}>
